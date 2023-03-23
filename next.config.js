@@ -4,7 +4,12 @@ const nextConfig = require("next-pwa")({
 });
 
 module.exports = nextConfig({
-    publicRuntimeConfig: {},
+    publicRuntimeConfig: {
+        environment: process.env.ENVIRONMENT,
+    },
+    serverRuntimeConfig: {
+        mongodbUri: process.env.MONGODB_URI,
+    },
     reactStrictMode: true,
     swcMinify: true,
     i18n: {

@@ -1,22 +1,30 @@
-import { NextApiRequest, NextApiResponse } from "next";
+import {
+    Body,
+    createHandler,
+    Get,
+    Post,
+    ValidationPipe,
+} from "next-api-decorators";
+import {
+    ACTIVITY_COLLECTION_NAME,
+    CreateActivityDTO,
+} from "../../../types/dto/activity";
 import clientPromise from "../../../services/server/mongodb";
 
-export default function handler(req: NextApiRequest, res: NextApiResponse) {
-    return new Promise(async (resolve) => {
-        if (req.method === "POST") {
-            // Add new activity
-            res.status(200).json({ method: "POST" });
-            resolve({});
-        } else if (req.method === "GET") {
-            // Get activity list
+class ActivityHandler {
+    @Get()
+    getActivity() {
+        return [];
+    }
 
+    @Post()
+    createActivity(@Body(ValidationPipe) body: CreateActivityDTO) {
+        return new Promise(async (resolve) => {
             let db = (await clientPromise).db("INFO902");
-
-            res.status(200).json({ database: db.databaseName });
-            resolve({});
-        } else {
-            res.status(400).end();
-            resolve({});
-        }
-    });
+            await db.collection(ACTIVITY_COLLECTION_NAME).insertOne(body);
+            resolve(null);
+        });
+    }
 }
+
+export default createHandler(ActivityHandler);

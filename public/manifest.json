@@ -1,6 +1,6 @@
 {
-    "name": "next-tailwind-pwa",
-    "short_name": "next-tailwind-pwa",
+    "name": "WellPose PoC",
+    "short_name": "WellPose",
     "theme_color": "#ffffff",
     "background_color": "#004740",
     "display": "fullscreen",

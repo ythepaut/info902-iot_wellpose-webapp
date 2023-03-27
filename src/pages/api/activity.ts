@@ -11,10 +11,11 @@ import {
     ValidationPipe,
 } from "next-api-decorators";
 import {
+    Activity,
     ACTIVITY_COLLECTION_NAME,
     CreateActivityDTO,
-} from "../../../types/dto/activity";
-import clientPromise from "../../../services/server/mongodb";
+} from "../../types/dto/activity";
+import clientPromise, { DB_NAME } from "../../services/server/mongodb";
 
 class ActivityHandler {
     @Get()
@@ -36,7 +37,7 @@ class ActivityHandler {
         if (page < 1) throw new BadRequestException("Page must be >= 1");
 
         return new Promise(async (resolve) => {
-            let db = (await clientPromise).db("INFO902");
+            let db = (await clientPromise).db(DB_NAME);
             let results = await db
                 .collection(ACTIVITY_COLLECTION_NAME)
                 .find({
@@ -54,8 +55,21 @@ class ActivityHandler {
     @HttpCode(201)
     createActivity(@Body(ValidationPipe) body: CreateActivityDTO) {
         return new Promise(async (resolve) => {
-            let db = (await clientPromise).db("INFO902");
-            await db.collection(ACTIVITY_COLLECTION_NAME).insertOne(body);
+            let db = (await clientPromise).db(DB_NAME);
+            const activity: Activity = {
+                dateStart: new Date(Date.now()),
+                dateEnd: new Date(Date.now() - body.duration!),
+                accelerations: body.accelerations!.map((a) => ({
+                    acceleration: {
+                        x: a.acceleration!.x,
+                        y: a.acceleration!.y,
+                        z: a.acceleration!.z,
+                    },
+                    dt: a.dt,
+                })),
+                orientation: body.orientation!,
+            };
+            await db.collection(ACTIVITY_COLLECTION_NAME).insertOne(activity);
             resolve(null);
         });
     }

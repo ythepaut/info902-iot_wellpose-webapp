@@ -1,4 +1,4 @@
-import { MongoClient } from "mongodb";
+import { MongoClient, ServerApiVersion } from "mongodb";
 import getConfig from "next/config";
 
 const { serverRuntimeConfig, publicRuntimeConfig } = getConfig();
@@ -8,7 +8,11 @@ if (!uri) {
     throw new Error("Invalid/Missing environment variable: \"MONGODB_URI\"");
 }
 
-const options = {};
+const options = {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    serverApi: ServerApiVersion.v1,
+};
 let client;
 let clientPromise: Promise<MongoClient>;
 
@@ -28,3 +32,5 @@ if (publicRuntimeConfig.environment === "development") {
 }
 
 export default clientPromise;
+
+export const DB_NAME = "WellPose";

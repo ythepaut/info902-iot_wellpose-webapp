@@ -1,4 +1,33 @@
 {
+    "general": {
+        "app": {
+            "name": "WellPose",
+            "abbr": "WP"
+        }
+    },
+    "navbar": {
+        "dashboard": "Dashboard",
+        "patients": "Patients",
+        "reports": "Reports",
+        "settings": "Settings",
+        "logout": "Log out"
+    },
+    "feature-unavailable": {
+        "title": "Feature unavailable",
+        "description": "This feature is not available for this proof of concept."
+    },
+    "dashboard": {
+        "title": "Dashboard"
+    },
+    "patient-info": {
+        "title": "Patient X"
+    },
+    "reports": {
+        "title": "Reports"
+    },
+    "settings": {
+        "title": "Settings"
+    },
     "error": {
         "404": {
             "title": "404 error",

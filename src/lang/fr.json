@@ -1,4 +1,33 @@
 {
+    "general": {
+        "app": {
+            "name": "WellPose",
+            "abbr": "WP"
+        }
+    },
+    "navbar": {
+        "dashboard": "Tableau de bord",
+        "patients": "Patients",
+        "reports": "Rapports",
+        "settings": "Paramètres",
+        "logout": "Déconnexion"
+    },
+    "feature-unavailable": {
+        "title": "Fonctionnalité indisponible",
+        "description": "Cette fonctionnalité n'est pas disponible pour ce PoC."
+    },
+    "dashboard": {
+        "title": "Tableau de bord"
+    },
+    "patient-info": {
+        "title": "Patient X"
+    },
+    "reports": {
+        "title": "Rapports"
+    },
+    "settings": {
+        "title": "Paramètres"
+    },
     "error": {
         "404": {
             "title": "Erreur 404",

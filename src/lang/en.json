@@ -19,8 +19,11 @@
     "dashboard": {
         "title": "Dashboard"
     },
+    "patient-list": {
+        "title": "Patient list"
+    },
     "patient-info": {
-        "title": "Patient X"
+        "title": "Patient {name}"
     },
     "reports": {
         "title": "Reports"

@@ -19,8 +19,11 @@
     "dashboard": {
         "title": "Tableau de bord"
     },
+    "patient-list": {
+        "title": "Liste des patients"
+    },
     "patient-info": {
-        "title": "Patient X"
+        "title": "{name}"
     },
     "reports": {
         "title": "Rapports"

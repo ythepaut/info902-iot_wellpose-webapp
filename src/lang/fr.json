@@ -23,7 +23,15 @@
         "title": "Liste des patients"
     },
     "patient-info": {
-        "title": "{name}"
+        "title": "{name}",
+        "activity": {
+            "title": "Activité"
+        },
+        "statistics": {
+            "title": "Statistiques",
+            "orientation-history": "Historique des orientations",
+            "acceleration-history": "Historique des accelerations"
+        }
     },
     "reports": {
         "title": "Rapports"

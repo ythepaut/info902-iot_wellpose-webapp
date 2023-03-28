@@ -41,8 +41,9 @@ class ActivityHandler {
             let results = await db
                 .collection(ACTIVITY_COLLECTION_NAME)
                 .find({
-                    dateFrom: { $gte: dateFrom, $lte: dateTo },
+                    //dateFrom: { $gte: dateFrom, $lte: dateTo },
                 })
+                .sort({ dateStart: 1 })
                 .skip((page - 1) * limit)
                 .limit(limit)
                 .map((activity) => ({ ...activity, _id: undefined }))

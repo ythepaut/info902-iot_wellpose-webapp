@@ -3,6 +3,9 @@ import Header from "../../components/layout/Header";
 import Navbar from "../../components/navigation/navbar/Navbar";
 import { useTranslations } from "use-intl";
 import Breadcrumb from "../../components/navigation/breadcrumb/Breadcrumb";
+import Tabs from "../../components/containers/Tabs";
+import Activity from "../../components/sections/patient-info/Activity";
+import Statistics from "../../components/sections/patient-info/Statistics";
 
 export default function PatientInfo(): JSX.Element {
     const t = useTranslations();
@@ -26,6 +29,20 @@ export default function PatientInfo(): JSX.Element {
                         ]}
                     />
                 </Header>
+                <div className="px-10 py-6">
+                    <Tabs
+                        tabs={[
+                            {
+                                child: <Activity />,
+                                name: t("patient-info.activity.title"),
+                            },
+                            {
+                                child: <Statistics />,
+                                name: t("patient-info.statistics.title"),
+                            },
+                        ]}
+                    />
+                </div>
             </div>
         </div>
     );

@@ -43,7 +43,7 @@ class ActivityHandler {
                 .find({
                     //dateFrom: { $gte: dateFrom, $lte: dateTo },
                 })
-                .sort({ dateStart: 1 })
+                .sort({ dateStart: -1 })
                 .skip((page - 1) * limit)
                 .limit(limit)
                 .map((activity) => ({ ...activity, _id: undefined }))

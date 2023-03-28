@@ -29,6 +29,7 @@
         },
         "statistics": {
             "title": "Statistiques",
+            "refresh": "Rafraîchir",
             "orientation-history": "Historique des orientations",
             "acceleration-history": "Historique des accelerations"
         }

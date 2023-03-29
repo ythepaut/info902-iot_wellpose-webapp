@@ -23,6 +23,7 @@ interface ChartData {
 
 export default function Statistics(): JSX.Element {
     const t = useTranslations("patient-info.statistics");
+    const tr = useTranslations();
 
     const [loaded, setLoaded] = useState<boolean>(false);
 
@@ -73,6 +74,11 @@ export default function Statistics(): JSX.Element {
                     setOrientationData({
                         dateLabels: rawData
                             .map((d: any) => d.dateEnd)
+                            .map((date: string) =>
+                                new Date(Date.parse(date)).toLocaleString(
+                                    tr("general.dateFormat"),
+                                ),
+                            )
                             .reverse(),
                         values: rawData
                             .map((d: any) => d.orientation)

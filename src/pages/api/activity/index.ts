@@ -10,13 +10,13 @@ import {
     Query,
     ValidationPipe,
 } from "next-api-decorators";
-import { getActivityLevel } from "../../services/server/userActivity";
+import { getActivityLevel } from "../../../services/server/userActivity";
 import {
     Activity,
     ACTIVITY_COLLECTION_NAME,
     CreateActivityDTO,
-} from "../../types/dto/activity";
-import clientPromise from "../../services/server/mongodb";
+} from "../../../types/dto/activity";
+import clientPromise from "../../../services/server/mongodb";
 import getConfig from "next/config";
 
 class ActivityHandler {

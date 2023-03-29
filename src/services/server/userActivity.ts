@@ -16,6 +16,5 @@ export async function getActivityLevel(db: Db): Promise<number> {
         (activity) => activity.accelerations.length !== 0,
     ).length;
 
-    return 1;
-    // return len === 0 ? 1 : 0;
+    return len === 0 ? 1 : 0;
 }

@@ -15,11 +15,12 @@ import {
 } from "chart.js";
 import { request } from "../../../services/client/communication";
 import Button from "../../buttons/Button";
-
-interface ChartData {
-    dateLabels: string[];
-    values: number[];
-}
+import {
+    DatedVector,
+    mapAccelerationData,
+    mapOrientationData,
+} from "../../../services/client/mapper";
+import { Activity } from "../../../types/dto/activity";
 
 export default function Statistics(): JSX.Element {
     const t = useTranslations("patient-info.statistics");
@@ -27,8 +28,8 @@ export default function Statistics(): JSX.Element {
 
     const [loaded, setLoaded] = useState<boolean>(false);
 
-    const [orientationData, setOrientationData] = useState<ChartData>();
-    const [accelerationData, setAccelerationData] = useState<ChartData>();
+    const [orientationData, setOrientationData] = useState<DatedVector[]>([]);
+    const [accelerationData, setAccelerationData] = useState<DatedVector[]>([]);
 
     const CHART_OPTIONS = {
         responsive: true,
@@ -67,24 +68,12 @@ export default function Statistics(): JSX.Element {
             // Retrieve data
             request("GET", "/api/activity", {}).then((result) => {
                 if (result.status !== 200) {
-                    setOrientationData({ dateLabels: [], values: [] });
-                    setAccelerationData({ dateLabels: [], values: [] });
+                    setOrientationData([]);
+                    setAccelerationData([]);
                 } else {
-                    const rawData = result.data;
-                    setOrientationData({
-                        dateLabels: rawData
-                            .map((d: any) => d.dateEnd)
-                            .map((date: string) =>
-                                new Date(Date.parse(date)).toLocaleString(
-                                    tr("general.dateFormat"),
-                                ),
-                            )
-                            .reverse(),
-                        values: rawData
-                            .map((d: any) => d.orientation)
-                            .reverse(),
-                    });
-                    setAccelerationData({ dateLabels: [], values: [] });
+                    const rawData = result.data as Activity[];
+                    setOrientationData(mapOrientationData(rawData));
+                    setAccelerationData(mapAccelerationData(rawData));
                 }
                 setLoaded(true);
             });
@@ -110,24 +99,31 @@ export default function Statistics(): JSX.Element {
                     {loaded ? (
                         <Line
                             data={{
-                                labels: orientationData?.dateLabels,
+                                labels: orientationData?.map((datedVector) =>
+                                    datedVector.date.toLocaleString(
+                                        tr("general.dateFormat"),
+                                    ),
+                                ),
                                 datasets: [
                                     {
                                         label: "x",
-                                        data: orientationData?.values.map(
-                                            (v: any) => v.x,
+                                        data: orientationData?.map(
+                                            (datedVector) =>
+                                                datedVector.vector.x,
                                         ),
                                     },
                                     {
                                         label: "y",
-                                        data: orientationData?.values.map(
-                                            (v: any) => v.y,
+                                        data: orientationData?.map(
+                                            (datedVector) =>
+                                                datedVector.vector.y,
                                         ),
                                     },
                                     {
                                         label: "z",
-                                        data: orientationData?.values.map(
-                                            (v: any) => v.z,
+                                        data: orientationData?.map(
+                                            (datedVector) =>
+                                                datedVector.vector.z,
                                         ),
                                     },
                                 ],
@@ -145,24 +141,31 @@ export default function Statistics(): JSX.Element {
                     {loaded ? (
                         <Line
                             data={{
-                                labels: accelerationData?.dateLabels,
+                                labels: accelerationData?.map((datedVector) =>
+                                    datedVector.date.toLocaleString(
+                                        tr("general.dateFormat"),
+                                    ),
+                                ),
                                 datasets: [
                                     {
                                         label: "x",
-                                        data: accelerationData?.values.map(
-                                            (v: any) => v.x,
+                                        data: accelerationData?.map(
+                                            (datedVector) =>
+                                                datedVector.vector.x,
                                         ),
                                     },
                                     {
                                         label: "y",
-                                        data: accelerationData?.values.map(
-                                            (v: any) => v.y,
+                                        data: accelerationData?.map(
+                                            (datedVector) =>
+                                                datedVector.vector.y,
                                         ),
                                     },
                                     {
                                         label: "z",
-                                        data: accelerationData?.values.map(
-                                            (v: any) => v.z,
+                                        data: accelerationData?.map(
+                                            (datedVector) =>
+                                                datedVector.vector.z,
                                         ),
                                     },
                                 ],

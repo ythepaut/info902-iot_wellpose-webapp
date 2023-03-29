@@ -25,6 +25,7 @@ import {
     mapOrientationData,
 } from "../../../services/mapper";
 import { Activity } from "../../../types/dto/activity";
+import { gradient } from "../../../services/evaluation";
 
 export default function Statistics(): JSX.Element {
     const t = useTranslations("patient-info.statistics");
@@ -49,11 +50,13 @@ export default function Statistics(): JSX.Element {
                     "rgba(102,203,159,1.0)",
                     "rgba(104,219,242,1.0)",
                     "rgba(120,149,255,1.0)",
+                    "rgba(241,96,99,1.0)",
                 ],
                 backgroundColor: [
                     "rgba(102,203,159,1.0)",
                     "rgba(104,219,242,1.0)",
                     "rgba(120,149,255,1.0)",
+                    "rgba(241,96,99,1.0)",
                 ],
             },
             point: {
@@ -150,6 +153,16 @@ export default function Statistics(): JSX.Element {
                                                 datedVector.vector.z,
                                         ),
                                     },
+                                    {
+                                        label: "10⁵.∑∇",
+                                        data: gradient(orientationData)?.map(
+                                            (gradient) =>
+                                                (Math.abs(gradient.x!) +
+                                                    Math.abs(gradient.y!) +
+                                                    Math.abs(gradient.z!)) *
+                                                10000,
+                                        ),
+                                    },
                                 ],
                             }}
                             options={CHART_OPTIONS}
@@ -188,6 +201,16 @@ export default function Statistics(): JSX.Element {
                                         data: accelerationData?.map(
                                             (datedVector) =>
                                                 datedVector.vector.z,
+                                        ),
+                                    },
+                                    {
+                                        label: "10³.∑∇",
+                                        data: gradient(accelerationData)?.map(
+                                            (gradient) =>
+                                                (Math.abs(gradient.x!) +
+                                                    Math.abs(gradient.y!) +
+                                                    Math.abs(gradient.z!)) *
+                                                1000,
                                         ),
                                     },
                                 ],

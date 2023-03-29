@@ -3,8 +3,7 @@
         "app": {
             "name": "WellPose",
             "abbr": "WP"
-        },
-        "dateFormat": "en-GB"
+        }
     },
     "navbar": {
         "dashboard": "Dashboard",

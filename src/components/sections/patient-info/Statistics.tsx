@@ -2,14 +2,18 @@ import { useTranslations } from "use-intl";
 import Card from "../../containers/Card";
 import { Line } from "react-chartjs-2";
 import { useEffect, useState } from "react";
+import "chartjs-adapter-date-fns";
+import "chart.js/auto";
 import {
     CategoryScale,
     Chart as ChartJS,
+    ChartOptions,
     Filler,
     Legend,
     LinearScale,
     LineElement,
     PointElement,
+    TimeScale,
     Title,
     Tooltip,
 } from "chart.js";
@@ -24,14 +28,13 @@ import { Activity } from "../../../types/dto/activity";
 
 export default function Statistics(): JSX.Element {
     const t = useTranslations("patient-info.statistics");
-    const tr = useTranslations();
 
     const [loaded, setLoaded] = useState<boolean>(false);
 
     const [orientationData, setOrientationData] = useState<DatedVector[]>([]);
     const [accelerationData, setAccelerationData] = useState<DatedVector[]>([]);
 
-    const CHART_OPTIONS = {
+    const CHART_OPTIONS: ChartOptions<"line"> = {
         responsive: true,
         maintainAspectRatio: false,
         plugins: {
@@ -47,6 +50,27 @@ export default function Statistics(): JSX.Element {
                     "rgba(104,219,242,1.0)",
                     "rgba(120,149,255,1.0)",
                 ],
+                backgroundColor: [
+                    "rgba(102,203,159,1.0)",
+                    "rgba(104,219,242,1.0)",
+                    "rgba(120,149,255,1.0)",
+                ],
+            },
+            point: {
+                radius: 1,
+            },
+        },
+        scales: {
+            x: {
+                type: "time",
+                time: {
+                    isoWeekday: true,
+                    displayFormats: {
+                        second: "dd/MM HH:mm:ss.SSS",
+                    },
+                    parser: "YYYY-MM-DDTHH:mm:ss.SSSZ",
+                    unit: "second",
+                },
             },
         },
     };
@@ -57,6 +81,7 @@ export default function Statistics(): JSX.Element {
             ChartJS.register(
                 CategoryScale,
                 LinearScale,
+                TimeScale,
                 PointElement,
                 LineElement,
                 Title,
@@ -99,10 +124,8 @@ export default function Statistics(): JSX.Element {
                     {loaded ? (
                         <Line
                             data={{
-                                labels: orientationData?.map((datedVector) =>
-                                    datedVector.date.toLocaleString(
-                                        tr("general.dateFormat"),
-                                    ),
+                                labels: orientationData?.map(
+                                    (datedVector) => datedVector.date,
                                 ),
                                 datasets: [
                                     {
@@ -141,10 +164,8 @@ export default function Statistics(): JSX.Element {
                     {loaded ? (
                         <Line
                             data={{
-                                labels: accelerationData?.map((datedVector) =>
-                                    datedVector.date.toLocaleString(
-                                        tr("general.dateFormat"),
-                                    ),
+                                labels: accelerationData?.map(
+                                    (datedVector) => datedVector.date,
                                 ),
                                 datasets: [
                                     {

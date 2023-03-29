@@ -15,13 +15,15 @@ export const mapOrientationData = (activityList: Activity[]): DatedVector[] => {
 export const mapAccelerationData = (
     activityList: Activity[],
 ): DatedVector[] => {
-    return activityList.flatMap((activity) =>
-        activity.accelerations.map((acceleration) => ({
-            date: new Date(
-                Date.parse(activity.dateStart as unknown as string) +
-                    acceleration.dt!,
-            ),
-            vector: acceleration.acceleration!,
-        })),
-    );
+    return activityList
+        .flatMap((activity) =>
+            activity.accelerations.map((acceleration) => ({
+                date: new Date(
+                    Date.parse(activity.dateStart as unknown as string) +
+                        Math.floor(acceleration.dt!),
+                ),
+                vector: acceleration.acceleration!,
+            })),
+        )
+        .sort((a, b) => (a.date.getTime() > b.date.getTime() ? 1 : 0));
 };

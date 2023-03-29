@@ -72,8 +72,8 @@ export default function Statistics(): JSX.Element {
                     setAccelerationData([]);
                 } else {
                     const rawData = result.data as Activity[];
-                    setOrientationData(mapOrientationData(rawData));
-                    setAccelerationData(mapAccelerationData(rawData));
+                    setOrientationData(mapOrientationData(rawData).reverse());
+                    setAccelerationData(mapAccelerationData(rawData).reverse());
                 }
                 setLoaded(true);
             });

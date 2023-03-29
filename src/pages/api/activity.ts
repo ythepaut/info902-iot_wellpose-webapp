@@ -10,6 +10,7 @@ import {
     Query,
     ValidationPipe,
 } from "next-api-decorators";
+import { getActivityLevel } from "../../services/server/userActivity";
 import {
     Activity,
     ACTIVITY_COLLECTION_NAME,
@@ -70,8 +71,11 @@ class ActivityHandler {
                 })),
                 orientation: body.orientation!,
             };
+
             await db.collection(ACTIVITY_COLLECTION_NAME).insertOne(activity);
-            resolve(null);
+            resolve({
+                level: await getActivityLevel(db),
+            });
         });
     }
 }

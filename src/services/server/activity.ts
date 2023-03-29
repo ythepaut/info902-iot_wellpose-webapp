@@ -9,8 +9,8 @@ import getConfig from "next/config";
 export const getActivityList = (
     page: number,
     limit: number,
-    dateFrom: Date,
-    dateTo: Date,
+    dateFrom: Date | null,
+    dateTo: Date | null,
 ): Promise<Activity[]> => {
     const { serverRuntimeConfig } = getConfig();
     return new Promise(async (resolve) => {

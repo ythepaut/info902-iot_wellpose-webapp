@@ -10,6 +10,7 @@ import {
     Query,
     ValidationPipe,
 } from "next-api-decorators";
+import { getActivityLevel } from "../../../services/server/userActivity";
 import { CreateActivityDTO } from "../../../types/dto/activity";
 import {
     createNewActivity,
@@ -43,7 +44,9 @@ class ActivityHandler {
     createActivity(@Body(ValidationPipe) body: CreateActivityDTO) {
         return new Promise(async (resolve) => {
             await createNewActivity(body);
-            resolve({});
+            resolve({
+                level: await getActivityLevel(),
+            });
         });
     }
 }

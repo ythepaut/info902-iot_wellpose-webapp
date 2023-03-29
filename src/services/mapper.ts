@@ -1,4 +1,4 @@
-import { Activity, Vector } from "../../types/dto/activity";
+import { Activity, Vector } from "../types/dto/activity";
 
 export interface DatedVector {
     date: Date;

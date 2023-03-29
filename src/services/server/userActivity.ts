@@ -1,6 +1,5 @@
 import { Db } from "mongodb";
 import { ACTIVITY_COLLECTION_NAME } from "../../types/dto/activity";
-import { Activity } from "../../types/dto/activity";
 
 export async function getActivityLevel(db: Db): Promise<number> {
     let activities = await db

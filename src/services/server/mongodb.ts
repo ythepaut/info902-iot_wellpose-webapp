@@ -32,5 +32,3 @@ if (publicRuntimeConfig.environment === "development") {
 }
 
 export default clientPromise;
-
-export const DB_NAME = "WellPose_Romain";

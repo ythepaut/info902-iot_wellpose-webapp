@@ -23,7 +23,7 @@ import {
     DatedVector,
     mapAccelerationData,
     mapOrientationData,
-} from "../../../services/client/mapper";
+} from "../../../services/mapper";
 import { Activity } from "../../../types/dto/activity";
 
 export default function Statistics(): JSX.Element {
@@ -44,7 +44,7 @@ export default function Statistics(): JSX.Element {
         },
         elements: {
             line: {
-                tension: 0.3,
+                tension: 0.2,
                 borderColor: [
                     "rgba(102,203,159,1.0)",
                     "rgba(104,219,242,1.0)",
@@ -101,6 +101,7 @@ export default function Statistics(): JSX.Element {
                     setAccelerationData(mapAccelerationData(rawData).reverse());
                 }
                 setLoaded(true);
+                //setTimeout(() => setLoaded(false), 5000); // FIXME: temporary
             });
         }
     }, [loaded, setLoaded]);

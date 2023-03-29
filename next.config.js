@@ -9,6 +9,7 @@ module.exports = nextConfig({
     },
     serverRuntimeConfig: {
         mongodbUri: process.env.MONGODB_URI,
+        mongodbDatabase: process.env.MONGODB_DATABASE,
     },
     reactStrictMode: true,
     swcMinify: true,

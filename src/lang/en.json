@@ -12,6 +12,16 @@
         "settings": "Settings",
         "logout": "Log out"
     },
+    "calendar": {
+        "monday": "Monday",
+        "tuesday": "Tuesday",
+        "wednesday": "Wednesday",
+        "thursday": "Thursday",
+        "friday": "Friday",
+        "saturday": "Saturday",
+        "sunday": "Sunday",
+        "locale": "en-GB"
+    },
     "feature-unavailable": {
         "title": "Feature unavailable",
         "description": "This feature is not available for this proof of concept."

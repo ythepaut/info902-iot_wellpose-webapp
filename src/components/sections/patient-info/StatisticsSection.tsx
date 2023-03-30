@@ -27,7 +27,7 @@ import {
 import { Activity } from "../../../types/dto/activity";
 import { gradient } from "../../../services/evaluation";
 
-export default function Statistics(): JSX.Element {
+export default function StatisticsSection(): JSX.Element {
     const t = useTranslations("patient-info.statistics");
 
     const [loaded, setLoaded] = useState<boolean>(false);
@@ -104,7 +104,6 @@ export default function Statistics(): JSX.Element {
                     setAccelerationData(mapAccelerationData(rawData).reverse());
                 }
                 setLoaded(true);
-                //setTimeout(() => setLoaded(false), 5000); // FIXME: temporary
             });
         }
     }, [loaded, setLoaded]);
@@ -157,9 +156,13 @@ export default function Statistics(): JSX.Element {
                                         label: "10⁵.∑∇",
                                         data: gradient(orientationData)?.map(
                                             (gradient) =>
-                                                (Math.abs(gradient.x!) +
-                                                    Math.abs(gradient.y!) +
-                                                    Math.abs(gradient.z!)) *
+                                                (Math.abs(gradient.vector.x!) +
+                                                    Math.abs(
+                                                        gradient.vector.y!,
+                                                    ) +
+                                                    Math.abs(
+                                                        gradient.vector.z!,
+                                                    )) *
                                                 10000,
                                         ),
                                     },
@@ -207,9 +210,13 @@ export default function Statistics(): JSX.Element {
                                         label: "10³.∑∇",
                                         data: gradient(accelerationData)?.map(
                                             (gradient) =>
-                                                (Math.abs(gradient.x!) +
-                                                    Math.abs(gradient.y!) +
-                                                    Math.abs(gradient.z!)) *
+                                                (Math.abs(gradient.vector.x!) +
+                                                    Math.abs(
+                                                        gradient.vector.y!,
+                                                    ) +
+                                                    Math.abs(
+                                                        gradient.vector.z!,
+                                                    )) *
                                                 1000,
                                         ),
                                     },

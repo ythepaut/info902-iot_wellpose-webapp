@@ -4,8 +4,8 @@ import Navbar from "../../components/navigation/navbar/Navbar";
 import { useTranslations } from "use-intl";
 import Breadcrumb from "../../components/navigation/breadcrumb/Breadcrumb";
 import Tabs from "../../components/containers/Tabs";
-import Activity from "../../components/sections/patient-info/Activity";
-import Statistics from "../../components/sections/patient-info/Statistics";
+import ActivitySection from "../../components/sections/patient-info/ActivitySection";
+import StatisticsSection from "../../components/sections/patient-info/StatisticsSection";
 
 export default function PatientInfo(): JSX.Element {
     const t = useTranslations();
@@ -33,11 +33,11 @@ export default function PatientInfo(): JSX.Element {
                     <Tabs
                         tabs={[
                             {
-                                child: <Activity />,
+                                child: <ActivitySection />,
                                 name: t("patient-info.activity.title"),
                             },
                             {
-                                child: <Statistics />,
+                                child: <StatisticsSection />,
                                 name: t("patient-info.statistics.title"),
                             },
                         ]}

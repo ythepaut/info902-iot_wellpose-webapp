@@ -12,6 +12,16 @@
         "settings": "Paramètres",
         "logout": "Déconnexion"
     },
+    "calendar": {
+        "monday": "Lundi",
+        "tuesday": "Mardi",
+        "wednesday": "Mercredi",
+        "thursday": "Jeudi",
+        "friday": "Vendredi",
+        "saturday": "Samedi",
+        "sunday": "Dimanche",
+        "locale": "fr-FR"
+    },
     "feature-unavailable": {
         "title": "Fonctionnalité indisponible",
         "description": "Cette fonctionnalité n'est pas disponible pour ce PoC."

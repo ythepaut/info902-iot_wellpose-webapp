@@ -35,7 +35,8 @@
     "patient-info": {
         "title": "{name}",
         "activity": {
-            "title": "Activity"
+            "title": "Activity",
+            "refresh": "Refresh"
         },
         "statistics": {
             "title": "Statistics",

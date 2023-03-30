@@ -80,6 +80,8 @@ export default function StatisticsSection(): JSX.Element {
 
     useEffect(() => {
         if (!loaded) {
+            setLoaded(true);
+
             // Initialize charts
             ChartJS.register(
                 CategoryScale,
@@ -94,7 +96,7 @@ export default function StatisticsSection(): JSX.Element {
             );
 
             // Retrieve data
-            request("GET", "/api/activity", {}).then((result) => {
+            request("GET", "/api/activity?limit=100", {}).then((result) => {
                 if (result.status !== 200) {
                     setOrientationData([]);
                     setAccelerationData([]);
@@ -103,24 +105,21 @@ export default function StatisticsSection(): JSX.Element {
                     setOrientationData(mapOrientationData(rawData).reverse());
                     setAccelerationData(mapAccelerationData(rawData).reverse());
                 }
-                setLoaded(true);
             });
         }
     }, [loaded, setLoaded]);
 
     return (
         <div className="space-y-6">
-            <div>
-                <Button
-                    size="medium"
-                    type="regular"
-                    colour="blue"
-                    onClick={() => setLoaded(false)}
-                    disabled={!loaded}
-                >
-                    {t("refresh")}
-                </Button>
-            </div>
+            <Button
+                size="medium"
+                type="regular"
+                colour="blue"
+                onClick={() => setLoaded(false)}
+                disabled={!loaded}
+            >
+                {t("refresh")}
+            </Button>
 
             <Card title={t("orientation-history")} separator={true}>
                 <div className={`p-4 ${loaded ? "h-96" : "min-h-80"}`}>

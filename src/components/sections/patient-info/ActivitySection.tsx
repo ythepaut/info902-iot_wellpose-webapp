@@ -9,6 +9,7 @@ import {
     gradientNormSum,
     gradientOverPeriod,
 } from "../../../services/evaluation";
+import Button from "../../buttons/Button";
 
 export default function ActivitySection(): JSX.Element {
     const t = useTranslations("patient-info.activity");
@@ -19,26 +20,28 @@ export default function ActivitySection(): JSX.Element {
     const [weekGradient, setWeekGradient] = useState<DatedVector[]>([]);
 
     useEffect(() => {
-        // Retrieve data
-        request("GET", "/api/activity", {}).then((result) => {
-            if (result.status === 200) {
-                const activity = result.data as Activity[];
-                const orientationGradient = gradientOverPeriod(
-                    gradient(mapOrientationData(activity)),
-                    calendarRef.current?.getWeek()[0],
-                    calendarRef.current?.getWeek()[6],
-                );
-                const accelerationGradient = gradientOverPeriod(
-                    gradient(mapOrientationData(activity)),
-                    calendarRef.current?.getWeek()[0],
-                    calendarRef.current?.getWeek()[6],
-                );
-                setWeekGradient(
-                    orientationGradient.concat(accelerationGradient),
-                );
-            }
+        if (!loaded) {
             setLoaded(true);
-        });
+
+            request("GET", "/api/activity?limit=1000000", {}).then((result) => {
+                if (result.status === 200) {
+                    const activity = result.data as Activity[];
+                    const orientationGradient = gradientOverPeriod(
+                        gradient(mapOrientationData(activity)),
+                        calendarRef.current?.getWeek()[0],
+                        calendarRef.current?.getWeek()[6],
+                    );
+                    const accelerationGradient = gradientOverPeriod(
+                        gradient(mapOrientationData(activity)),
+                        calendarRef.current?.getWeek()[0],
+                        calendarRef.current?.getWeek()[6],
+                    );
+                    setWeekGradient(
+                        orientationGradient.concat(accelerationGradient),
+                    );
+                }
+            });
+        }
     }, [loaded, setLoaded]);
 
     const dateToColourClass = (date: Date): string => {
@@ -50,15 +53,24 @@ export default function ActivitySection(): JSX.Element {
             new Date(dateTo),
         );
         const normSum = gradientNormSum(gradient);
-        if (normSum > 100) return "bg-green";
-        else if (normSum > 50) return "bg-green-light";
+        if (normSum > 1000) return "bg-green";
+        else if (normSum > 500) return "bg-green-light";
         else if (normSum > 0) return "bg-green-soft";
         return "bg-white";
     };
 
     return (
-        <>
+        <div className="space-y-6">
+            <Button
+                size="medium"
+                type="regular"
+                colour="blue"
+                onClick={() => setLoaded(false)}
+                disabled={!loaded}
+            >
+                {t("refresh")}
+            </Button>
             <Calendar classFromDate={dateToColourClass} ref={calendarRef} />
-        </>
+        </div>
     );
 }

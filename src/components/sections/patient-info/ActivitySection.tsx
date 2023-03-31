@@ -3,7 +3,11 @@ import Calendar, { CalendarRef } from "../../Calendar";
 import { useEffect, useRef, useState } from "react";
 import { request } from "../../../services/client/communication";
 import { Activity } from "../../../types/dto/activity";
-import { DatedVector, mapOrientationData } from "../../../services/mapper";
+import {
+    DatedVector,
+    mapAccelerationData,
+    mapOrientationData,
+} from "../../../services/mapper";
 import {
     gradient,
     gradientNormSum,
@@ -32,7 +36,7 @@ export default function ActivitySection(): JSX.Element {
                         calendarRef.current?.getWeek()[6],
                     );
                     const accelerationGradient = gradientOverPeriod(
-                        gradient(mapOrientationData(activity)),
+                        gradient(mapAccelerationData(activity)),
                         calendarRef.current?.getWeek()[0],
                         calendarRef.current?.getWeek()[6],
                     );

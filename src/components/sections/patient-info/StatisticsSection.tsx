@@ -81,7 +81,7 @@ export default function StatisticsSection(): JSX.Element {
     useEffect(() => {
         if (!loaded) {
             setLoaded(true);
-
+            setTimeout(() => setLoaded(false), 5000);
             // Initialize charts
             ChartJS.register(
                 CategoryScale,

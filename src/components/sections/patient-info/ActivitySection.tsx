@@ -53,8 +53,8 @@ export default function ActivitySection(): JSX.Element {
             new Date(dateTo),
         );
         const normSum = gradientNormSum(gradient);
-        if (normSum > 1000) return "bg-green";
-        else if (normSum > 500) return "bg-green-light";
+        if (normSum > 1500) return "bg-green";
+        else if (normSum > 750) return "bg-green-light";
         else if (normSum > 0) return "bg-green-soft";
         return "bg-white";
     };

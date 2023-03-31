@@ -123,7 +123,7 @@ export default function StatisticsSection(): JSX.Element {
 
             <Card title={t("orientation-history")} separator={true}>
                 <div className={`p-4 ${loaded ? "h-96" : "min-h-80"}`}>
-                    {loaded ? (
+                    {loaded || orientationData.length ? (
                         <Line
                             data={{
                                 labels: orientationData?.map(
@@ -177,7 +177,7 @@ export default function StatisticsSection(): JSX.Element {
 
             <Card title={t("acceleration-history")} separator={true}>
                 <div className={`p-4 ${loaded ? "h-96" : "min-h-80"}`}>
-                    {loaded ? (
+                    {loaded || accelerationData.length ? (
                         <Line
                             data={{
                                 labels: accelerationData?.map(
